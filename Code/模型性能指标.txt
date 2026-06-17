@@ -1,0 +1,36 @@
+import pandas as pd
+import numpy as np
+
+# 设置 Excel 文件路径
+file_path = 'C:/Users/Administrator/Desktop/a1.xlsm'  # 根据实际路径确认无误
+
+# 读取 Excel 文件
+excel_data = pd.read_excel(file_path)
+
+# 确保列名无误，并去除缺失值
+df = excel_data[['原始位置误差', 'ATLSTM预测的位置误差']].dropna()
+
+# 提取真实值和预测值
+actual_values = df['原始位置误差']
+predicted_values = df['ATLSTM预测的位置误差']
+
+# 计算均方根误差（RMSE）
+rmse = np.sqrt(np.mean((actual_values - predicted_values) ** 2))
+print("RMSE:", rmse)
+
+# 计算残差率（乘以100以表示为百分比）
+residual_rate =(np.sum(np.abs(actual_values - predicted_values)))/(np.sum(np.abs(actual_values)))*100
+print("残差率 (%):", residual_rate)
+'''
+rmse1= np.sqrt(np.mean((actual - predicted1) ** 2))
+rmse2= np.sqrt(np.mean((actual - predicted2) ** 2))
+rmse3= np.sqrt(np.mean((actual - predicted2) ** 2))
+
+print(f'RMSE1: {rmse1}')
+print(f'RMSE2: {rmse2}')
+print(f'RMSE3: {rmse3}')
+
+
+absolute_sum2 =(np.sum(np.abs(actual - predicted2)))/(np.sum(np.abs(actual)))*100
+absolute_sum3 =(np.sum(np.abs(actual - predicted3)))/(np.sum(np.abs(actual)))*100
+'''
